@@ -11,12 +11,12 @@ global.THREE = require('three')
 const chat = require('./chat')
 
 async function main () {
-  const viewDistance = 6
-
+  const viewDistance = 4
+    
   const bot = mineflayer.createBot({
-    host: '95.111.249.143',
-    port: 10000,
-    username: prompt('Username'),
+    host: prompt('What server would you like to connect to? Do not include the port.'),
+    port: prompt('What port is this server on? Enter 25565 if you don\'t know.'),
+    username: prompt('What username would you like to connect with?'),
   })
 
   bot.once('spawn', () => {

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MineWeb</title>
+    <style type="text/css">
+      @font-face {
+        font-family: minecraft;
+        src: url(minecraftia.woff);
+      }
+
+      html {
+        overflow: hidden;
+      }
+
+      html, body {
+        height: 100%;
+
+        margin: 0;
+        padding: 0;
+      }
+
+      canvas {
+        height: 100%;
+        width: 100%;
+        font-size: 0;
+
+        margin: 0;
+        padding: 0;
+      }
+      .chat-wrapper {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .chat-display-wrapper {
+        bottom: calc(8px * 16);
+        padding: 4px;
+        max-height: calc(90px * 16);
+        width: calc(320px * 4);
+      }
+
+      .chat-input-wrapper {
+        bottom: calc(2px * 16);
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      .chat {
+        color: white;
+        font-size: 32px;
+        margin: 0px;
+        line-height: 0px;
+        text-shadow: 4px 4px 0px #3f3f3f;
+        font-family: minecraft, monospace;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-wrapper chat-display-wrapper">
+      <div class="chat" id="chat-display">
+        <p>Welcome to MineWeb! Chat appears here.</p>
+      </div>
+    </div>
+    <div class="chat-wrapper chat-input-wrapper">
+      <div class="chat" id="chat-input">
+        <input type="text" class="chat"></input>
+      </div>
+    </div>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
