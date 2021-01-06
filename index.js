@@ -21,7 +21,6 @@ async function main () {
 
   bot.once('spawn', () => {
     console.log('bot spawned - starting viewer')
-    chat.init(undefined, bot._client)
 
     const version = bot.version
 
@@ -29,11 +28,16 @@ async function main () {
 
     const worldView = new WorldView(bot.world, viewDistance, center)
 
+
     // Create three.js context, add to page
     const renderer = new THREE.WebGLRenderer()
+
+
     renderer.setPixelRatio(window.devicePixelRatio || 1)
     renderer.setSize(window.innerWidth, window.innerHeight)
     document.body.appendChild(renderer.domElement)
+
+    chat.init(undefined, bot._client, renderer)
 
     // Create viewer
     const viewer = new Viewer(renderer)

@@ -33,12 +33,16 @@ const dictionary = {
   'chat.type.text': '<%s> %s'
 }
 
-export function init(mineweb, client) {
+export function init(mineweb, client, renderer) {
   const chat = document.querySelector('#chat');
   const chatInput = document.querySelector('#chatinput');
 
   const chatHistory = []
   let chatHistoryPos = 0
+  
+  renderer.domElement.requestPointerLock = renderer.domElement.requestPointerLock ||
+      renderer.domElement.mozRequestPointerLock ||
+      renderer.domElement.webkitRequestPointerLock
 
   // Show chat
   chat.style.display = "block";
@@ -105,6 +109,8 @@ export function init(mineweb, client) {
     inChat = false;
     // Hide chat
     hideChat();
+
+    renderer.domElement.requestPointerLock()
     // Enable controls
     // mineweb._noa.inputs.disabled = false;
     // Focus noa again
