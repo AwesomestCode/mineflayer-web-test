@@ -9,14 +9,15 @@ const { Vec3 } = require('vec3')
 global.THREE = require('three')
 
 const chat = require('./chat')
+const inventory = require('./inventory')
 
 async function main () {
   const viewDistance = 6
 
   const bot = mineflayer.createBot({
-    host: '95.111.249.143',
-    port: 10000,
-    username: prompt('Username'),
+    host: /*prompt('What server would you like to connect to? Do not include the port.')*/ 'localhost',
+    port: /*prompt('What port is this server on? Enter 25565 if you don\'t know.')*/ '25577',
+    username: prompt('What username would you like to connect with?'),
   })
 
   bot.once('spawn', () => {
@@ -34,6 +35,10 @@ async function main () {
     renderer.setPixelRatio(window.devicePixelRatio || 1)
     renderer.setSize(window.innerWidth, window.innerHeight)
     document.body.appendChild(renderer.domElement)
+
+
+    chat.init(undefined, bot._client, renderer)
+    inventory.init(bot)
 
     // Create viewer
     const viewer = new Viewer(renderer)
@@ -111,6 +116,22 @@ async function main () {
       }
     }, false)
 
+    document.addEventListener('mousedown', (e) => {
+      let BlockDistance = (bot.gamemode === 1 ) ? 8 : 5;
+      const ButtonBlock = bot.blockAtCursor(BlockDistance);
+      if (!ButtonBlock) return;
+      if (e.button === 0) {
+        if (bot.canDigBlock(ButtonBlock)) {
+          bot.dig(ButtonBlock);
+        }
+      } else if (e.button === 2) {
+        const vecArray = [new Vec3(0, -1, 0), new Vec3(0, 1, 0), new Vec3(0, 0, -1), new Vec3(0, 0, 1), new Vec3(-1, 0, 0), new Vec3(1, 0, 0)];
+        const vec  = vecArray[ButtonBlock.face];
+
+        bot.placeBlock(ButtonBlock, vec);
+      }
+    }, false);
+
     // Browser animation loop
     const animate = () => {
       window.requestAnimationFrame(animate)
@@ -118,5 +139,6 @@ async function main () {
     }
     animate()
   })
+
 }
 main()
